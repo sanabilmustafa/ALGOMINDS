@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stock Screener</title>
+    <link rel="stylesheet" href="../static/style.css" />
+    <script
+      src="https://kit.fontawesome.com/616de63735.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:wght@500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <style>
+    button {
+      padding: 8px;
+      background-color: rgb(79, 79, 79);
+      color: white;
+      border: none;
+      border-radius: 3px;
+      margin-left: 7px;
+    }
+    .symbol_code{
+      background: #000;
+  }
+    button:hover {
+      background-color: rgb(38, 38, 38);
+    }
+    .table {
+      border-collapse: collapse; /* Remove extra spacing between cells */
+    }
+    /* General table styling */
+    .table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    /* Style for table header */
+    .table th {
+      /*position: sticky; */
+      top: 0; /* Freeze header at the top */
+      background-color: #f4f4f4; /* Header background color */
+      z-index: 0; /* Ensure header appears above rows */
+    }
+
+    /* Sticky first column and first header cell */
+    /* .table td:first-child, 
+.table th:first-child {
+    position: sticky;
+    left: 0;
+    background-color: #f4f4f4; 
+    z-index: 4; 
+    border-right: 1px solid #ddd; 
+} */
+
+    /* Even row styling */
+    .table tbody tr:nth-child(even) {
+      background-color: #f2f2f2; /* Light gray for even rows */
+    }
+
+    /* Odd row styling */
+    .table tbody tr:nth-child(odd) {
+      background-color: white; /* White for odd rows */
+    }
+
+    /* Keep consistent background color for the first column */
+    .table td:first-child {
+      background-color: inherit; /* Inherit the background color of the row */
+    }
+
+    /* Optional: Hover effect for rows */
+    .table tbody tr:hover {
+      background-color: #ddd; /* Highlight the row on hover */
+    }
+
+    /* Optional: Add hover effect for rows */
+    /* Individual column widths */
+    /* .timestamp {
+    line-height: 37px;
+    white-space: nowrap;
+}
+
+.sector {
+    white-space: nowrap;
+    line-height: 37px;
+}
+
+.company {
+    /* width: 900px; */
+    /* line-height: 37px;
+    white-space: nowrap;
+} */
+  </style>
+<body>
+    <h2 class="heading">
+        Stock Screener<i class="fa-solid fa-angle-down"></i>
+    </h2>
+    <button class="feature-btn" onclick="showTechnicalOptions()">
+        TECHNICALS<i class="fa-solid fa-angle-down"></i>
+    </button>
+
+    <button class="feature-btn" onclick="toggleColumnOptions()">
+        COLUMNS<i class="fa-solid fa-angle-down"></i>
+    </button>
+    <div
+        id="columnOptions"
+        class="column_container feature-down"
+        style="display: none">
+        <!-- Dynamic checkboxes will be generated here -->
+        </div>
+
+    <button class="feature-btn" onclick="toggleStockOptions()">
+        STOCKS<i class="fa-solid fa-angle-down"></i>
+    </button>
+    <div id="stockOptions" class="column_container feature-down" style="display: none">
+      <button onclick="applyStocks()">Apply</button>  
+
+        <!-- Dynamic checkboxes will be generated here -->
+        <div class="stock_container" id="stockCheckboxContainer"></div>
+    </div>
+
+
+      <button class="feature-btn"  onclick="showSectorFilter()">FILTER BY SECTOR<i class="fa-solid fa-angle-down"></i></button>
+      <div id="sectorFilterModal" style="display:none;">
+        <p>Select Sectors</p>
+        <button onclick="applySectorFilter()">Apply</button>
+        <button onclick="closeSectorFilter()">Cancel</button>
+        <div id="sectorOptions" class="sector_container"></div>
+
+      </div>
+
+
+    <!-- <div class="features"> -->
+
+    <!-- Modal for selecting technical indicators -->
+    <div id="technicalOptions" style="display: none">
+        <h3>Select Indicator</h3>
+
+        <!-- RSI Section -->
+        <div id="rsiOption" style="display: none">
+        <label for="rsiInterval">RSI Interval (Days): </label>
+        <input type="number" id="rsiInterval" value="14" min="1" max="50" />
+
+        <label for="rsiTimeInterval">RSI Time Interval: </label>
+        <select id="rsiTimeInterval">
+            <option value="1day">1 Day</option>
+            <option value="1min">1 Minute</option>
+            <option value="3min">3 Minute</option>
+            <option value="15min">15 Minute</option>
+            <option value="30min">30 Minutes</option>
+            <option value="45min">45 Minutes</option>
+        </select>
+
+        <button onclick="applyRSI()">Apply RSI</button>
+        </div>
+
+        <!-- SMA Section -->
+        <div id="smaOption" style="display: none">
+        <label for="smaTimePeriod">SMA Time Period: </label>
+        <input type="number" id="smaTimePeriod" value="30" min="1" max="200" />
+
+        <label for="smaTimeInterval">SMA Time Interval: </label>
+        <select id="smaTimeInterval">
+            <option value="1day">1 Day</option>
+            <option value="1min">1 Minute</option>
+            <option value="3min">3 Minute</option>
+            <option value="15min">15 Minute</option>
+            <option value="30min">30 Minutes</option>
+            <option value="45min">45 Minutes</option>
+        </select>
+
+        <button onclick="applySMA()">Apply SMA</button>
+        </div>
+
+        <!-- Back to main options -->
+        <button onclick="backToMainOptions()">Back</button>
+        <!-- </div> -->
+        <!-- </div> -->
+    </div>
+
+    <table class="table" id="market-data-table">
+        <thead>
+        <tr id="table-header">
+            <!-- <th class="timestamp">Timestamp</th>
+                <th class="sector">Sector</th>
+                <th class="company">Company</th> -->
+        </tr>
+        </thead>
+        <tbody id="table-body">
+        <!-- Rows will be dynamically populated -->
+        </tbody>
+    </table>
+
+<script src="../static/main.js"></script>
+<script src="../static/technicals.js"></script>
+<script src="../static/filters.js"></script>
+<script>
+    const columnConfig = {{ column_config | tojson }};
+    const initialData = {{ stocks | tojson }};
+    initializeRowConfig(initialData);
+</script>
+</body>
+</html>

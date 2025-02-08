@@ -1,0 +1,160 @@
+:root {
+    --primary-color: #646770; 
+    --secondary-color: #000000; 
+    --text-color: #333333;
+    --background-color: #ffffff;
+    --light-color: #dddddd;
+    --tertiary-color: #f0f3fa;
+} 
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--background-color); /* Dark background */
+    color: var(--secondary-color); /* Light text */
+    font-family: "Poppins", Arial;
+}
+
+table {
+    /* width: 100%; */
+    height: 50px;
+    /* background-color: var(--background-color); Table dark background */
+    color: var(--text-color);
+    width: 100%;
+}
+tr th {
+    padding: 10px; 
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: var(--light-color); /* Set your desired background color */
+}
+.table tbody tr:hover {
+    background-color: var(--tertiary-color); /* Highlight row on hover */
+}
+th, td {
+    border-bottom: 1px solid #969696;
+}
+td{
+    /* background-color: #00c853; */
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 30px;
+}
+
+th {
+    font-weight: 400;
+    color: var(--secondary-color);
+    padding: 19px;
+    /* margin: 700px; */
+    font-size: 14px;
+    /* width: 45rem; */
+    white-space: nowrap;
+    background-color: var(--background-color); /* Slightly lighter for contrast */
+    border-bottom: 1px solid #969696; /*Dark grey separators*/
+    /* position: sticky; */
+}
+th:hover{
+    background-color: var(--tertiary-color);
+    height: 20px;
+}
+/* tr{
+    height: 35px;
+} */
+tr:nth-child(even) {
+    background-color: var(--background-color); /* Alternate row color */
+}
+
+tr:hover {
+    background-color: var(--background-color); /* Row highlight effect */
+}
+
+.positive { color: #00c853; } /* Green for positive values */
+.negative { color: #d32f2f; } /* Red for negative values */
+
+/* Buttons Styling */
+/* button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+button:hover {
+    background-color: #444;
+} */
+
+/* Dropdown and Column Options */
+.column_container , .stock_container {
+    background-color: var(--background-color);
+    border: 1px solid var(--primary-color);
+    color: var(--secondary-color);
+    /* padding: 10px; */
+    position: absolute; 
+    width: 200px;
+}
+.stock_container{
+    height: 60vh;
+    overflow-y: scroll;
+}
+.sector_container{
+    background-color: var(--background-color);
+    border: 1px solid var(--primary-color);
+    color: var(--secondary-color);
+    /* padding: 10px; */
+    position: absolute; 
+    width: 500px;
+    height: 60vh;
+    overflow-y: scroll;
+}
+.heading{
+    font-size: 25px;
+    font-weight: 500;
+    padding-left: 14px;
+}
+.fa-angle-down{
+    padding-left: 10px;
+    color: var(--primary-color);
+}
+.feature-bar{
+    display: flex;
+}
+.feature-btn{
+    background-color: var(--background-color);
+    color: var(--primary-color);
+    font-weight: 300;
+    border: 1px solid #969696;
+}
+.feature-btn:hover{
+    background-color: var(--tertiary-color);
+    border: none;
+    padding: 9px;
+}
+.column_container> label{
+    margin: 0;
+    font-size: 14px;
+    padding: 3px 20px 3px 15px;
+    width:200px;
+}
+.column_container > label:hover{
+    background-color: var(--tertiary-color);
+}
+
+.flash-green {
+    background-color: #a9d2ba;
+    transition: background-color 0s ease;
+}
+
+.flash-red {
+    background-color: #f5a9a9;
+    transition: background-color 0.5s ease;
+}
